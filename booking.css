@@ -1,0 +1,100 @@
+```css
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+/* Background */
+body{
+    min-height:100vh;
+    background:url("temple.png") no-repeat center center;
+    background-size:cover;
+    background-attachment:fixed;
+    overflow-y:auto;
+}
+
+/* Dark overlay */
+.overlay{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.35);
+    padding:40px 20px;
+}
+
+/* Glass Form */
+.register{
+    width:420px;
+    padding:35px;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(18px);
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+    animation:zoomIn .8s ease;
+}
+
+/* Labels */
+label{
+    color:#fff;
+    font-size:15px;
+    font-weight:bold;
+}
+
+/* Inputs & Select */
+input,
+select{
+    width:100%;
+    padding:12px;
+    margin-top:6px;
+    margin-bottom:18px;
+    border:none;
+    border-radius:10px;
+    font-size:15px;
+    background:rgba(255,255,255,0.90);
+    outline:none;
+}
+
+/* Focus */
+input:focus,
+select:focus{
+    border:2px solid gold;
+}
+
+/* Button */
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:gold;
+    color:#000;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#ffb300;
+    transform:scale(1.03);
+}
+
+/* Animation */
+@keyframes zoomIn{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+```

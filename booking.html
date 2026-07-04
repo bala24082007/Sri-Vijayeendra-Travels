@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Now</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="booking.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body>
+
+<div class="overlay">
+
+<div class="register">
+
+<form id="booking-form">  
+    <label>Tour Package</label><br>
+    <input type="text" name="tour_package" id="tour_package" readonly><br><br>
+
+    <label>Car Type</label><br>
+    <select name="car" id="car" onchange="setPassengers()" required>
+        <option value="">Select Car</option>
+        <option value="Swift">Swift</option>
+        <option value="Innova">Innova</option>
+        <option value="Tempo Traveller">Tempo Traveller</option>
+    </select><br>
+
+    <label>No. of Passengers</label><br>
+    <input type="text" name="passengers" id="passengers" readonly><br><br>
+
+    <label>Name</label><br>
+    <input type="text" name="name" placeholder="Enter your name here" required><br>
+
+    <label>Phone Number</label><br>
+    <input
+    type="text"
+    name="phone"
+    placeholder="Enter your phone number"
+    maxlength="10"
+    pattern="[0-9]{10}"
+    inputmode="numeric"
+    oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)"
+    required><br>
+
+    <label>Pickup Location</label><br>
+    <input type="text" name="pickup" placeholder="Pickup Location" required><br>
+
+    <label>Drop Location</label><br>
+    <input type="text" name="drop" placeholder="Drop Location" required><br>
+    <label>AC / Non-AC</label><br>
+<select name="ac_type" required>
+    <option value="">Select Option</option>
+    <option value="AC">AC</option>
+    <option value="Non-AC">Non-AC</option>
+</select><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email" placeholder="Enter Your Email here"><br>
+
+    <label>Journey Date</label><br>
+    <input type="date" name="date" required><br>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+emailjs.init({
+    publicKey: "CzYNflbYmSSy1HyhW",
+});
+
+// Auto fill passengers
+function setPassengers() {
+
+    let car = document.getElementById("car").value;
+    let passengers = document.getElementById("passengers");
+
+    if (car === "Swift") {
+        passengers.value = "4";
+    } else if (car === "Innova") {
+        passengers.value = "7";
+    } else if (car === "Tempo Traveller") {
+        passengers.value = "12";
+    } else {
+        passengers.value = "";
+    }
+}
+
+document.getElementById("booking-form").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    emailjs.send("service_5ygc8r8", "template_g0rokfd", {
+        tour_package:this.tour_package.value,
+        name: this.name.value,
+        phone: this.phone.value,
+        pickup: this.pickup.value,
+        drop: this.drop.value,
+        ac_type: this.ac_type.value,
+        email: this.email.value,
+        date: this.date.value,
+        car: this.car.value,
+        passengers: this.passengers.value
+
+    }).then(function() {
+
+        alert("Booking submitted successfully!");
+        document.getElementById("booking-form").reset();
+        document.getElementById("passengers").value = "";
+
+    }).catch(function(error) {
+
+        console.log(error);
+        alert("Failed to send booking.");
+
+    });
+
+});
+const params = new URLSearchParams(window.location.search);
+const tourPackage = params.get("package");
+
+if (tourPackage) {
+    document.getElementById("tour_package").value = tourPackage;
+}
+
+
+</script>
+</body>
+</html>
